@@ -1,0 +1,71 @@
+1.-Meter en Initialase.xml las beans basicas que deba proveer el sistema para su funcionamiento
+2.-Correr Initialase.java
+3.-Ejecutar cmd en modo boss(boton derecho, run as boss) y escribir las siguientes sentencias:
+	cd "C:\Program Files\MySQL"
+	cd "MySQL Server 5.5"
+	cd "bin"
+	mysqldump -uroot -pV3rY=$tR0nG=P@$$w0rd$ Acme-Handy-Worker > C:\Temp\Create-Acme-Handy-Worker.sql
+4.-Modificar el script creado en el punto anterior incluyendo lo siguiente:
+-inicio:
+start transaction;
+
+drop database if exists `Acme-Handy-Worker`;
+
+create database `Acme-Handy-Worker`;
+
+use 'Acme-Handy-Worker';
+
+create user 'acme-user'@'%' identified by password '*4F10007AADA9EE3DBB2CC36575DFC6F4FDE27577';
+
+create user 'acme-manager'@'%' identified by password '*FDB8CD304EB2317D10C95D797A4BD7492560F55F';
+
+grant select, insert, update, delete 
+	on `Acme-Handy-Worker`.* to 'acme-user'@'%';
+
+grant select, insert, update, delete, create, drop, references, index, alter, 
+	create temporary tables, lock tables, create view, create routine, 
+	alter routine, execute, trigger, show view 
+	on `Acme-Handy-Worker`.* to 'acme-manager'@'%';
+
+-fin:
+commit;
+5.-Crear el .war: exportar el proyecto en eclipse como WAR file y seleccionar en el proceso "Optimize ..." y "Overwrite..." y no marcar "Export source files"
+6.-Guardar el script y el war generado para meterlo en Preproduction
+7.-Meternos en Preproduction
+8.-Hackear el dominio (realizado): mirar "Lessons 7" pág. 62
+9.-Guardar el script en la unidad C: en la carpeta Temp
+10.-Si existe base de datos en la maquina, debemos limpiarla creando un fichero "Delete-Acme-Handy-Worker.sql" el cual contenga lo siguiente:
+start transaction;
+
+use 'Acme-Handy-Worker';
+
+revoke all privileges on `Acme-Handy-Worker`.* from 'acme-user'@'%';
+revoke all privileges on `Acme-Handy-Worker`.* from 'acme-manager'@'%';
+
+drop user 'acme-user'@'%';
+drop user 'acme-manager'@'%';
+
+drop database 'Acme-Handy-Worker';
+
+commit;
+10.1.-Ejecutar el fichero creado anteriormente
+	cd "C:\Program Files\MySQL\MySQL Server 5.5\bin"
+	mysql -uroot -pV3rY=$tR0nG=P@$$w0rd$ < C:\Temp\Delete-Acme-Handy-Worker.sql
+10.2.- Si no queremos hacer este punto 10, debemos cogerr una preproduction nueva
+11.-Ejecutar cmd y escribir las siguientes sentencias
+	cd "C:\Program Files\MySQL\MySQL Server 5.5\bin"
+	mysql -uroot -pV3rY=$tR0nG=P@$$w0rd$ < C:\Temp\Create-Acme-Handy-Worker.sql
+12.-Comprobar que existe la base de dato y los usuarios creados con las siguientes sentencias:
+	Estar en modo root (mysql -uroot -pV3rY=$tR0nG=P@$$w0rd$)
+	show databases;
+	select user, host, password from mysql.user;
+13.-Abrir el navegador con  http://localhost/manager , seleccionar el modo admin con la contraseña  T0mC@t=Adm1n1$trat0R
+14.-Undeploy cada aplicacion que se muestre menos /manager
+15.-Deploy con el war de la siguiente forma:
+	Context Path : /
+	War or Directory URL: (url del war en el directorio)
+	NOTA: si no se puede hacer Undeploy, debemos cerrar la maquina
+16.-Si esta corriendo, ya podriamos ejecutarlo en el navegador con la url www.acme.com
+
+
+	
