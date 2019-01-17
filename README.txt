@@ -1,1 +1,3 @@
-In the responsibility statements document we provided two links instead of just one because we were using Projetsii and recently it had some problems which made it harder to update/commit changes and we wanted to make sure it wouldn't affect us. This is also the reason why the github repository could have few commits compared to Projetsii.
+In the responsibility statements document we provided two links instead of just one because we were using Projetsii and recently it had some problems which made it harder to update/commit changes and we wanted to make sure it wouldn't affect us. This is also the reason why the github repository could have few commits.
+
+Note that the Projetsii Repository may not contain the last version of every file since we were unable to upload them sometimes. We still share the projetsii link because it is specifically asked in the responsibility statement document.
