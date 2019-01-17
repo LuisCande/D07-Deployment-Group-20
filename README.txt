@@ -1,4 +1,1 @@
-We created a method to reject every existing application for a certain fixuptask when an application of that fix-up task is accepted and gets a credit card.
-With this, we make sure that the rest of applications show as rejected while just one is accepted.
-
-When trying to access any other actors messages by hacking the link, you will be redirected to index.
+In the responsibility statements document we provided two links instead of just one because we were using Projetsii and recently it had some problems which made it harder to update/commit changes and we wanted to make sure it wouldn't affect us. This is also the reason why the github repository could have few commits compared to Projetsii.
